@@ -61,7 +61,14 @@ class ProductsController extends Controller
         curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $result = curl_exec($ch);
-        print_r($result);
-        die;
+        $result = json_decode($result, true);
+
+        if ($result == null) {
+            echo "</h3>Not allowed before 30 sec.</h3>";
+            die;
+        } else {
+            $this->view->data = $result;
+        }
+        
     }
 }
